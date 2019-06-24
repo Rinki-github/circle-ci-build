@@ -1,0 +1,61 @@
+version: 2.0
+jobs:
+  build:
+    working_directory: ~/Track-Manual-Org-Changes
+    docker:
+      - image: appirio/dx-salesforce:latest
+    steps:
+      - checkout
+      -run:
+          name: values
+          command: |
+                  echo $CIRCLE_REPOSITORY_URL
+      - run:
+          name: validate
+          command: pwd
+      - run:
+          name: validate
+          command: ls
+      - run:
+          name: test
+          command: |
+                  value=$(<config/appirio.json)
+                  echo "$value"
+      - run:
+          name: validate
+          command: |
+                  adx -v
+                  pwd
+                  ls config
+                  adx deploy:package --deploy.testLevel NoTestRun -u aroraharsh59@gmail.com -p appirio1 -s https://test.salesforce.com
+      - run:
+          name: deploy
+          command: |
+                  adx
+                  'adx sort:check'
+                  #'adx deploy:package --deploy.testLevel RunLocalTests --deploy.checkOnly false --target QA'
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+             branches:
+              only:
+                - qa
+                - dev
+                - full
+                - master
+     # - deploy:
+      #    context: cmc-aws
+       #   requires:
+        #    - build
+         # filters:
+          #  branches:
+           #   only:
+            #    - qa
+             #   - dev
+              #  - full
+               # - master
+
