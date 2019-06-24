@@ -7,8 +7,7 @@ jobs:
       - checkout
       -run:
           name: values
-          command: |
-                  echo $CIRCLE_REPOSITORY_URL
+          command: echo $CIRCLE_REPOSITORY_URL
       - run:
           name: validate
           command: pwd
