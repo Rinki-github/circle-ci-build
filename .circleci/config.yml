@@ -2,7 +2,7 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: appirio/dx-salesforce:latest
+      - image: appiriodev/dx-cli-dev:latest
     steps:
       - checkout
       - run:
