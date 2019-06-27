@@ -30,7 +30,7 @@ jobs:
           name: deploy
           command: |
                   adx
-                  'adx sort:check'
+                  adx sort:check
                   #'adx deploy:package --deploy.testLevel RunLocalTests --deploy.checkOnly false --target QA'
 
 workflows:
